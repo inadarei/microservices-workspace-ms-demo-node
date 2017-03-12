@@ -17,3 +17,6 @@ ENV HOME_DIR=/opt/application \
     NODE_ENV=production \
     NODE_HOT_RELOAD=0 \
     NB_IS_CONTAINER=1
+
+ENV PORT=7702
+EXPOSE 7702
