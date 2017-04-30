@@ -1,2 +1,2 @@
 app:
-  csrf: false
+  something: else

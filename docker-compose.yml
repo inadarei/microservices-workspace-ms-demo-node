@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  ms-demo-node:
+    container_name: ms-demo-node
+    user: root # avoids ton of volume mounting headaches in dev mode.
+    build:
+      context: .
+    volumes:
+      - ./:/opt/app
+      # @see: http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html#the-node_modules-volume-trick
+      - /opt/app/node_modules
+    expose:
+      - 7702
+    ports:
+      - 7702:7702
+    env_file:
+      - ./database.env
+    links: 
+      - ms-demo-node-db
+    environment: 
+      - NODE_ENV=development
+      - NODE_HOT_RELOAD=1
+      - NODE_LOGGER_GRANULARLEVELS=1
+      - NODE_CONFIG_DISABLE_FILE_WATCH="Y"
+      - PORT=7702
+    command: nodemon -L -e js,coffee,jade,handlebars server.js
+
+  ms-demo-node-db:
+    container_name: ms-demo-node-db
+    image: mysql:5.7
+    # port mapping not needed for the app, but convenient in debugging
+    # to use some GUI tool (e.g. SequelPro) against the DB, on the host
+    #ports:
+    #  - 5306:3306
+    env_file:
+      - ./database.env
+    volumes:
+      - ms_demo_node_db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  ms_demo_node_db_data:

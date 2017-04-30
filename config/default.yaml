@@ -1,4 +1,4 @@
 app:
-  port: 3000
-  pub_dir: "/public"
-  csrf: false
+  something: other
+db_driver: "mysql"
+
