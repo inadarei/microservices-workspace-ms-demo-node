@@ -15,7 +15,7 @@ services:
     ports:
       - 7702:7702
     env_file:
-      - ./database.env
+      - database.env
     links: 
       - ms-demo-node-db
     environment: 
