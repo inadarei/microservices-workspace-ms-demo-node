@@ -11,12 +11,12 @@ services:
       # @see: http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html#the-node_modules-volume-trick
       - /opt/app/node_modules
     ports:
-      - 7507:5501
+      - 7702:5501
     env_file:
       - ./database.env
-    links: 
+    links:
       - ms-demo-node-db
-    environment: 
+    environment:
       - NODE_ENV=development
       - NODE_HOT_RELOAD=1
       - NODE_LOGGER_GRANULARLEVELS=1
