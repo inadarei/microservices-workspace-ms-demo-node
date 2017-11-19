@@ -1,6 +1,10 @@
 // eslint-disable global-require
-var path = require('path');
-var log = require('metalogger')();
+const path   = require('path');
+const helmet = require('helmet');
+const log    = require('metalogger')();
+
+const hbs    = require('hbs');
+
 require('app-module-path').addPath(path.join(__dirname,'/lib'));
 
 exports.setup = function(app, callback) {
@@ -9,23 +13,28 @@ exports.setup = function(app, callback) {
 
   // Choose your favorite view engine(s)
   app.set('view engine', 'handlebars');
-  app.engine('handlebars', require('hbs').__express);
+  app.engine('handlebars', hbs.__express);
 
   //---- Mounting well-encapsulated application modules (so-called: "mini-apps")
   //---- See: http://expressjs.com/guide/routing.html and http://vimeo.com/56166857
 
-  // API endpoint attached to root route:
-  app.use('/', require('homedoc')); // attach to root route
-  app.use('/users', require('users')); // attach to root route
+  /* eslint-disable global-require */
+  app.use('/',      require('homedoc')); // attach to root route
+  app.use('/users', require('users')); // attach to sub-route
+  /* eslint-enable global-require */
 
-   // Custom formatting for error responses. 
+  /** Adding security best-practices middleware
+   * see: https://www.npmjs.com/package/helmet **/
+  app.use(helmet());
+
+   // Custom formatting for error responses.
    // Among other things reformats Celebrate's (joi middleware) default output
-  app.use((err, req, res, next) => { 
+  app.use((err, req, res, next) => {
     if (err) {
-      var out = {};
+      const out = {};
       if (err.isJoi) { // Joi-based validation error. No need to log these
         out.errors = err.details;
-        res.status(400).json(out); 
+        res.status(400).json(out);
         return;
       } else {
         log.error(err);
@@ -34,16 +43,16 @@ exports.setup = function(app, callback) {
         } else {
           out.errors = [err.toString()];
         }
-        
+
         res.status(500).json(out);
-        return; 
+        return;
       }
     }
     return next();
   });
 
   // If you need websockets:
-  // var socketio = require('socket.io')(runningApp.http);
+  // let socketio = require('socket.io')(runningApp.http);
   // require('fauxchatapp')(socketio);
 
   if(typeof callback === 'function') {
