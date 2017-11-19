@@ -1,9 +1,8 @@
-var request = require('supertest');
-
-var server = require('../support/server');
+const request = require('supertest');
+const server = require('../support/server');
 
 describe('home document', function() {
-  var app;
+  let app;
   beforeEach(function (done) {
     app = server.express();
     server.beforeEach(app, function() {

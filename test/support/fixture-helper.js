@@ -1,20 +1,21 @@
-var fixtures = require('path').join(__dirname, '../fixtures');
+const fixtures = require('path').join(__dirname, '../fixtures');
+const fs = require('fs');
+const path = require('path');
 
-var fs = require('fs');
-var path = require('path');
+const ext = {};
 
-var exports = module.exports = {};
-
-exports.loadFixture = function(name, cb) {
-  var pathToFixture = path.join(fixtures, "/", name);
+ext.loadFixture = function(name, cb) {
+  const pathToFixture = path.join(fixtures, "/", name);
 
   return new Promise (function(resolve, reject) {
     fs.readFile(pathToFixture, "utf8", function (err, data) {
-      if (err) { 
-        reject(err); 
+      if (err) {
+        reject(err);
       } else {
         resolve(data);
       }
     });
   });
 };
+
+module.exports = ext;
