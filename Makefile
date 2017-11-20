@@ -1,7 +1,7 @@
 default: start
 
 project:=ms-workspace-demo
-service:=${service}
+service:=ms-demo-node
 
 .PHONY: start
 start:
