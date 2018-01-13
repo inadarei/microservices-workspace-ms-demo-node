@@ -7,10 +7,10 @@ const log     = require('metalogger')();
 
 const usersModel = require('users/models/users');
 
-describe('users endpoint', function() {
+describe('users endpoint', () => {
   let app;
 
-  beforeEach(function (done) {
+  beforeEach((done) => {
     app = server.express();
     server.beforeEach(app, function() {
       done();
@@ -20,7 +20,7 @@ describe('users endpoint', function() {
   afterEach(function () {
   });
 
-  before(function() {
+  before(() => {
 
     this.sinonbox = sinon.sandbox.create();
 
@@ -35,12 +35,12 @@ describe('users endpoint', function() {
     });
   });
 
-  after(function() {
+  after(() => {
     this.sinonbox.restore();
   });
 
   // Note: depends on the usersModel stub.
-  it('GET /users returns proper data', function(done) {
+  it('GET /users returns proper data', (done) =>  {
     request(app)
       .get('/users')
       .expect('Content-Type', /application\/hal\+json.*/)

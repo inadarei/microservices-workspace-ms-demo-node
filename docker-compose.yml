@@ -22,7 +22,8 @@ services:
       - NODE_LOGGER_GRANULARLEVELS=1
       - NODE_CONFIG_DISABLE_FILE_WATCH="Y"
       - PORT=5501
-    command: nodemon -L -e js,coffee,jade,handlebars server.js
+    #command: nodemon -L -e js,coffee,jade,handlebars server.js
+    command: ./wait-for.sh ms-demo-node-db:3306 --timeout=240 -- ./start-after-migrations.sh
 
   ms-demo-node-db:
     container_name: ms-demo-node-db
@@ -31,6 +32,8 @@ services:
     # to use some GUI tool (e.g. SequelPro) against the DB, on the host
     ## ports:
     ##   - 5306:3306
+    ports:
+      - 3306
     expose:
       - 3306
     env_file:
