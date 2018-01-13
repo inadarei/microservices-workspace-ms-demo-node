@@ -5,6 +5,8 @@ env:
   jquery: false
   browser: false
 extends: 'eslint:recommended'
+parserOptions:
+  ecmaVersion: 8
 plugins:
   - mocha
 rules:

@@ -1,11 +1,11 @@
 const request = require('supertest');
 const server = require('../support/server');
 
-describe('home document', function() {
+describe('home document', () => {
   let app;
   beforeEach(function (done) {
     app = server.express();
-    server.beforeEach(app, function() {
+    server.beforeEach(app, () => {
       done();
     });
   });
@@ -14,28 +14,28 @@ describe('home document', function() {
 
   });
 
-  it('responds to / with a 200 OK', function(done) {
+  it('responds to / with a 200 OK', (done) => {
     request(app)
       .get('/')
       .expect(200)
       .end(done);
   });
 
-  it('should have proper headers', function(done) {
+  it('should have proper headers', (done) => {
     request(app)
       .get('/')
       .expect(200)
-      .expect(function(res){
+      .expect((res) => {
         res.headers.should.have.properties(['content-type','etag']);
       })
       .end(done);
   });
 
-  it('should have proper uber+json content-type', function(done) {
+  it('should have proper uber+json content-type', (done) => {
     request(app)
       .get('/')
       .expect(200)
-      .expect(function(res){
+      .expect((res) => {
         res.headers['content-type'].should.equal('application/vnd.uber+json; charset=utf-8');
       })
       .end(done);
@@ -45,7 +45,7 @@ describe('home document', function() {
     request(app)
       .get('/')
       .expect(200)
-      .expect(function(res){
+      .expect((res) => {
         res.body.should.have.properties(['uber']);
         res.body.uber.should.have.properties(['data']);
       })

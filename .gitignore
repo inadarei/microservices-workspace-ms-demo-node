@@ -124,3 +124,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.nyc_output
+package-lock.json
