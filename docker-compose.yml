@@ -3,6 +3,9 @@ version: "3"
 services:
   ms-demo-node:
     container_name: ms-demo-node
+    labels:
+      - "traefik.backend=ms-demo-node"
+      - "traefik.frontend.rule=PathPrefixStrip: /demonode"    
     user: root # avoids ton of volume mounting headaches in dev mode.
     build:
       context: .
@@ -11,7 +14,9 @@ services:
       # @see: http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html#the-node_modules-volume-trick
       - /opt/app/node_modules
     ports:
-      - 7702:5501
+      - 5501
+    expose:
+      - 5501
     env_file:
       - ./database.env
     links:
