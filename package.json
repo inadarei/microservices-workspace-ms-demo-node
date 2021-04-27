@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "app-module-path": "^2.1.0",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.14.1",
     "celebrate": "^7.0.1",
@@ -39,18 +39,18 @@
   "devDependencies": {
     "after": "^0.8.1",
     "chai": "^4.1.2",
-    "db-migrate": "^0.10.0-beta.20",
+    "db-migrate": "^0.11.12",
     "db-migrate-mysql": "^1.1.10",
     "eslint": "^4.11.0",
     "eslint-plugin-mocha": "^4.11.0",
     "istanbul": "^0.4.2",
-    "mocha": "^4.0.0",
+    "mocha": "^8.3.2",
     "nock": "^9.0.0",
-    "nyc": "^11.3.0",
+    "nodemon": "^1.14.3",
+    "nyc": "^15.1.0",
     "should": "^13.0.0",
     "sinon": "^4.1.0",
-    "supertest": "^3.0.0",
-    "nodemon": "^1.14.3"
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "docker-compose up -d",
